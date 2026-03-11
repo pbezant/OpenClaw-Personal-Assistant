@@ -1,0 +1,16 @@
+# Private overlay (do not publish)
+CV.md
+USER.md
+GOALS.md
+TASKS.md
+WINS_LOG.md
+jobs/
+agents/
+AGENTS.md
+ASSISTANT_SYSTEM.md
+
+# Local/dev artifacts
+.playwright-mcp/
+.env
+""/
+.DS_Store
