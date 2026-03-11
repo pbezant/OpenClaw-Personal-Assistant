@@ -2,6 +2,18 @@
 
 A shareable, docs-first starter kit for running OpenClaw on **Proxmox + Ubuntu LXC + systemd**, with Discord chat access and operational recovery guidance.
 
+## 🚀 Quick Start (paste in Proxmox shell)
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/pbezant/OpenClaw-Personal-Assistant/main/scripts/proxmox_openclaw_onepaste.sh)"
+```
+
+Raw script URL:
+
+- `https://raw.githubusercontent.com/pbezant/OpenClaw-Personal-Assistant/main/scripts/proxmox_openclaw_onepaste.sh`
+
+Then continue with `docs/FROM_ZERO_CHECKLIST.md`.
+
 ## Who this is for
 
 Use this if you want a practical, manual setup flow from infrastructure to first Discord `pong`, without hidden automation.
