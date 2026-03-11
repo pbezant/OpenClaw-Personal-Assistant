@@ -15,16 +15,18 @@ Use this if you want a practical, manual setup flow from infrastructure to first
 5. Use modular setup guides:
 	- `docs/NETWORK_REMOTE_ACCESS.md`
 	- `docs/DISCORD_SETUP.md`
-6. Use `docs/OPERATIONS.md` for day-2 support
-7. Review versions: `docs/VERSIONS.md`
-8. Use script references: `docs/SCRIPT_RUNBOOKS.md`
-9. Run `docs/PUBLISHING_CHECKLIST.md` before sharing
-10. Run `docs/REDACTION_QUICK_CHECK.md` for final privacy pass
+6. Use one-paste launcher guide: `docs/ONE_PASTE_INSTALL.md`
+7. Use `docs/OPERATIONS.md` for day-2 support
+8. Review versions: `docs/VERSIONS.md`
+9. Use script references: `docs/SCRIPT_RUNBOOKS.md`
+10. Run `docs/PUBLISHING_CHECKLIST.md` before sharing
+11. Run `docs/REDACTION_QUICK_CHECK.md` for final privacy pass
 
 ## Current setup assets
 
 - `docs/OPENCLAW_REMOTE_ACCESS_QUICKSTART.md` (legacy all-in-one runbook; being decomposed)
 - `scripts/proxmox_create_openclaw_lxc.sh`
+- `scripts/proxmox_openclaw_onepaste.sh`
 - `scripts/proxmox_tailscale_subnet_router.sh`
 - `scripts/openclaw_gateway_info.sh`
 - `scripts/openclaw_discord_watchdog_install.sh`

@@ -6,6 +6,7 @@ If you're starting from scratch, use `docs/FROM_ZERO_CHECKLIST.md` first.
 
 ## Scripts
 
+- `scripts/proxmox_openclaw_onepaste.sh` → `docs/ONE_PASTE_INSTALL.md`
 - `scripts/proxmox_create_openclaw_lxc.sh` → `docs/scripts/proxmox_create_openclaw_lxc.md`
 - `scripts/proxmox_tailscale_subnet_router.sh` → `docs/scripts/proxmox_tailscale_subnet_router.md`
 - `scripts/openclaw_gateway_info.sh` → `docs/scripts/openclaw_gateway_info.md`

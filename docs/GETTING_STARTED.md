@@ -5,6 +5,8 @@ This is the canonical setup path for v1.
 Before starting, confirm your stack against `docs/VERSIONS.md`.
 Use `docs/FROM_ZERO_CHECKLIST.md` to track progress as you go.
 
+Want Community-Scripts style setup? Use the one-paste launcher in `docs/ONE_PASTE_INSTALL.md`.
+
 ## 1) Provision Ubuntu LXC on Proxmox (if you don't already have one)
 
 On the Proxmox host, run:
