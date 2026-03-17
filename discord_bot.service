@@ -1,0 +1,26 @@
+[Unit]
+Description=OpenClaw Discord Bot
+Documentation=https://github.com/prestonbezant/openclaw
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# OPENCLAW_USER is substituted by deploy.sh during installation
+User=OPENCLAW_USER
+WorkingDirectory=/OPENCLAW_HOME/openclaw/workspace
+ExecStart=/OPENCLAW_HOME/openclaw/workspace/venv/bin/python discord_bot.py
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Expose .env variables to the process
+EnvironmentFile=/OPENCLAW_HOME/openclaw/workspace/.env
+
+# Hardening (optional, safe to remove if they cause issues)
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

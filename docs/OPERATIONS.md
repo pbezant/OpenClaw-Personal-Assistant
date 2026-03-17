@@ -12,6 +12,7 @@
 
 1. Restart gateway:
    - `systemctl restart openclaw-gateway`
+   - **Note (2026.3.8 bug):** `openclaw gateway restart` disables the service instead of restarting it. Always use `systemctl restart openclaw-gateway` instead.
 2. Wait 10–20 seconds.
 3. Re-check `openclaw channels status --probe`.
 
