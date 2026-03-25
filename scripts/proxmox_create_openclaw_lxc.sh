@@ -66,8 +66,30 @@ pct create "$CTID" "${TEMPLATE_STORAGE}:vztmpl/${TEMPLATE_NAME}" \
 echo "[5/9] Starting container..."
 pct start "$CTID"
 
+echo "[5.5/9] Configuring DNS (persistent, required for package installation)..."
+pct exec "$CTID" -- bash -c "cat > /etc/netplan/99-dns.yaml <<'NETPLAN'
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: true
+      dhcp4-overrides:
+        use-dns: false
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+NETPLAN
+netplan apply 2>/dev/null || true"
+sleep 2
+
 echo "[6/9] Installing SSH server and baseline packages..."
-pct exec "$CTID" -- bash -lc "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server ca-certificates curl sudo"
+pct exec "$CTID" -- bash -lc "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server ca-certificates curl sudo git python3-venv"
+
+echo "[6.5/9] Cloning and bootstrapping OpenClaw inside container..."
+pct exec "$CTID" -- bash -lc "cd /root && if [[ ! -d openclaw ]]; then git clone https://github.com/pbezant/OpenClaw-Personal-Assistant.git openclaw; fi"
+pct exec "$CTID" -- bash -lc "cd /root/openclaw/workspace && python3 -m venv venv && venv/bin/pip install -q --upgrade pip && venv/bin/pip install -q -r requirements.txt"
+pct exec "$CTID" -- bash -lc "cd /root/openclaw/workspace && if [[ ! -f .env && -f .env.example ]]; then cp .env.example .env; fi"
+pct exec "$CTID" -- bash -lc "if [[ -f /root/openclaw/workspace/discord_bot.service ]]; then sed -e 's|OPENCLAW_USER|root|g' -e 's|OPENCLAW_HOME|/root|g' /root/openclaw/workspace/discord_bot.service > /etc/systemd/system/openclaw-bot.service && systemctl daemon-reload && systemctl enable openclaw-bot; fi"
+pct exec "$CTID" -- bash -lc "systemctl restart openclaw-bot || true"
 
 echo "[7/9] Enabling SSH password login for first bootstrap..."
 pct exec "$CTID" -- bash -lc "sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config"
@@ -101,4 +123,5 @@ else
 fi
 echo "Root password set by script: ${ROOT_PASSWORD}"
 echo "IMPORTANT: Change root password after first login."
-echo "Next: install OpenClaw in this container, then continue docs/GETTING_STARTED.md"
+echo "Fill /root/openclaw/workspace/.env with DISCORD_BOT_TOKEN and ANTHROPIC_API_KEY or OPENAI_API_KEY (copy from .env.example)."
+echo "Then run: systemctl restart openclaw-bot && systemctl status openclaw-bot"

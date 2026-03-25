@@ -55,6 +55,8 @@ echo
 cat <<'NEXT'
 Next steps:
 - SSH into your OpenClaw container (use the IP printed by the LXC script)
+- Open /root/openclaw/workspace/.env and put your DISCORD_BOT_TOKEN and ANTHROPIC_API_KEY (or OPENAI_API_KEY)
+- Then run: systemctl restart openclaw-bot && systemctl status openclaw-bot
 - Continue with docs/FROM_ZERO_CHECKLIST.md
 - Configure Discord via docs/DISCORD_SETUP.md
 NEXT
