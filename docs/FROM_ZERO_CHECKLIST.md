@@ -21,12 +21,13 @@ Use this as the fastest no-surprises path.
 - [ ] Change root password immediately after login
 - [ ] (Recommended) add your SSH key and move toward key-only auth
 
-## D) Verify OpenClaw platform in container
+## D) Verify OpenClaw platform and complete onboarding
 
-The LXC script installs OpenClaw automatically. Verify it:
+The LXC script installs OpenClaw automatically. Verify and configure it:
 
 - [ ] `openclaw --version`
 - [ ] `openclaw doctor`
+- [ ] Run `openclaw onboard` to complete interactive setup
 - [ ] `systemctl status openclaw-gateway --no-pager -l`
 
 ## E) Enable remote access networking

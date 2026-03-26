@@ -12,7 +12,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/pbezant/OpenClaw-Persona
 
 The launcher shows a small menu:
 
-1. Create OpenClaw Debian LXC (with GUI + Discord bot)
+1. Create OpenClaw Debian LXC (platform + Control UI)
 2. Configure Tailscale subnet router
 3. Run both (recommended)
 
@@ -26,8 +26,8 @@ It then runs the corresponding script(s) directly from this repository.
 
 ## After running
 
-- Continue with `docs/FROM_ZERO_CHECKLIST.md`
-- Follow `docs/DISCORD_SETUP.md` for channel setup + pairing
+- SSH into the container and run `openclaw onboard` to configure your setup
+- Continue with `docs/FROM_ZERO_CHECKLIST.md` for Discord, Tailscale, and full setup
 
 ## Security note
 

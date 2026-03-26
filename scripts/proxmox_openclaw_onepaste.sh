@@ -22,7 +22,7 @@ run_remote_script() {
 cat <<'MENU'
 OpenClaw Proxmox One-Paste Installer
 ------------------------------------
-1) Create OpenClaw Debian LXC (with GUI + Discord bot)
+1) Create OpenClaw Debian LXC (platform + Control UI)
 2) Configure Tailscale subnet router on Proxmox
 3) Run both (recommended)
 4) Exit
@@ -54,8 +54,9 @@ esac
 echo
 cat <<'NEXT'
 Next steps:
-- Open https://<container-ip>/connect in your browser (accept the self-signed cert)
-- You will land directly in the Control UI — no pairing or token paste needed
-- For Discord: edit /root/openclaw-assistant/.env, then systemctl restart openclaw-bot
-- Continue with docs/FROM_ZERO_CHECKLIST.md
+- SSH into the container and change the root password
+- Run: openclaw config   ← set your API keys and preferences
+- Run: systemctl start openclaw-gateway
+- Open https://<container-ip> in your browser (accept the self-signed cert)
+- Tell OpenClaw: "review BOOTSTRAP.md" to complete setup
 NEXT

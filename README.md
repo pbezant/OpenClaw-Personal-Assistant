@@ -1,6 +1,6 @@
-# OpenClaw Proxmox + Discord Starter (Docs-First)
+# OpenClaw Proxmox Starter (Docs-First)
 
-A shareable, docs-first starter kit for running OpenClaw on **Proxmox + Ubuntu LXC + systemd**, with Discord chat access and operational recovery guidance.
+A shareable, docs-first starter kit for running OpenClaw on **Proxmox + Debian LXC + systemd**, with modular guides for Discord, networking, and operations.
 
 ## 🚀 Quick Start (paste in Proxmox shell)
 
