@@ -29,7 +29,7 @@ Provision a fresh Ubuntu 24.04 LXC on Proxmox for OpenClaw and make first SSH ac
 
 Optional overrides (examples):
 
-- `CTID=247 HOSTNAME=openclaw-lab scripts/proxmox_create_openclaw_lxc.sh`
+- `CTID=247 CT_HOSTNAME=openclaw-lab scripts/proxmox_create_openclaw_lxc.sh`
 - `IP_CONFIG=192.168.1.180/24 GATEWAY=192.168.1.1 scripts/proxmox_create_openclaw_lxc.sh`
 - `SSH_PUBLIC_KEY_FILE=~/.ssh/id_ed25519.pub scripts/proxmox_create_openclaw_lxc.sh`
 
@@ -44,8 +44,8 @@ After script completion:
 
 ## Key inputs
 
-- `CTID` default `246`
-- `HOSTNAME` default `openclaw`
+- `CTID` auto-assigned (next available ID starting from 100); override with `CTID=xxx`
+- `CT_HOSTNAME` default `OpenClaw`
 - `IP_CONFIG` default `dhcp`
 - `GATEWAY` optional for static IP mode
 - `SSH_PUBLIC_KEY_FILE` optional path to public key

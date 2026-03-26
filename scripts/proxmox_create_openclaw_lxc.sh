@@ -32,9 +32,24 @@ else
   echo "[DRY-RUN] Skipping root/pct checks"
 fi
 
+# ── Auto-detect next available CTID (sequential from 100) ─────────────────
+next_available_ctid() {
+  local id=100
+  while pct status "$id" >/dev/null 2>&1 || qm status "$id" >/dev/null 2>&1; do
+    id=$((id + 1))
+  done
+  echo "$id"
+}
+if [[ -n "${CTID:-}" ]]; then
+  : # user override
+elif [[ "$DRY_RUN" == "1" ]]; then
+  CTID="100"
+else
+  CTID="$(next_available_ctid)"
+fi
+
 # ── Configurable defaults (override via env) ─────────────────────────────
-CTID="${CTID:-246}"
-HOSTNAME="${HOSTNAME:-openclaw}"
+CT_HOSTNAME="${CT_HOSTNAME:-OpenClaw}"
 TEMPLATE_STORAGE="${TEMPLATE_STORAGE:-local}"
 ROOTFS_STORAGE="${ROOTFS_STORAGE:-local-lvm}"
 DISK_SIZE_GB="${DISK_SIZE_GB:-${var_disk:-32}}"
@@ -51,7 +66,7 @@ ROOT_PASSWORD="${ROOT_PASSWORD:-ChangeMeNow123!}"
 if [[ "$DRY_RUN" == "1" ]]; then
   echo "=========================================="
   echo "  DRY-RUN MODE — no changes will be made"
-  echo "  CTID=$CTID  HOSTNAME=$HOSTNAME  CORES=$CORES"
+  echo "  CTID=$CTID  HOSTNAME=$CT_HOSTNAME  CORES=$CORES"
   echo "  MEMORY=${MEMORY_MB}MB  DISK=${DISK_SIZE_GB}GB  BRIDGE=$BRIDGE"
   echo "  IP=$IP_CONFIG  STORAGE=$ROOTFS_STORAGE"
   echo "=========================================="
@@ -59,7 +74,7 @@ if [[ "$DRY_RUN" == "1" ]]; then
 fi
 
 if [[ "$DRY_RUN" != "1" ]] && pct status "$CTID" >/dev/null 2>&1; then
-  echo "Container CTID $CTID already exists. Pick a new CTID (e.g., CTID=247)." >&2
+  echo "Container CTID $CTID already exists. Remove CTID override for auto-assignment, or pick a different CTID." >&2
   exit 1
 fi
 
@@ -88,14 +103,14 @@ NET_ARG="name=eth0,bridge=${BRIDGE},ip=${IP_CONFIG}"
 echo "[2/6] Creating container CTID ${CTID}..."
 if [[ "$DRY_RUN" == "1" ]]; then
   echo "[DRY-RUN] pct create $CTID ${TEMPLATE_STORAGE}:vztmpl/${TEMPLATE_NAME} \\"
-  echo "          --hostname $HOSTNAME --cores $CORES --memory $MEMORY_MB --swap $SWAP_MB \\"
+  echo "          --hostname $CT_HOSTNAME --cores $CORES --memory $MEMORY_MB --swap $SWAP_MB \\"
   echo "          --rootfs ${ROOTFS_STORAGE}:${DISK_SIZE_GB} --net0 $NET_ARG \\"
   echo "          --unprivileged $UNPRIVILEGED --onboot 1 --password ***"
   echo "[DRY-RUN] pct start $CTID"
   echo "[DRY-RUN] Set DNS: nameserver 8.8.8.8, 1.1.1.1"
 else
   pct create "$CTID" "${TEMPLATE_STORAGE}:vztmpl/${TEMPLATE_NAME}" \
-    --hostname "$HOSTNAME" --cores "$CORES" --memory "$MEMORY_MB" --swap "$SWAP_MB" \
+    --hostname "$CT_HOSTNAME" --cores "$CORES" --memory "$MEMORY_MB" --swap "$SWAP_MB" \
     --rootfs "${ROOTFS_STORAGE}:${DISK_SIZE_GB}" --net0 "$NET_ARG" \
     --unprivileged "$UNPRIVILEGED" --onboot 1 --password "$ROOT_PASSWORD"
   pct start "$CTID"
