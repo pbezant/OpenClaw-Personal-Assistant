@@ -8,7 +8,7 @@ Use this as the fastest no-surprises path.
 - [ ] Confirm `pct` and `pveam` are available on Proxmox
 - [ ] Confirm storage/bridge values you want (`local`, `local-lvm`, `vmbr0` defaults are supported)
 
-## B) Create Ubuntu LXC for OpenClaw
+## B) Create Debian LXC for OpenClaw
 
 - [ ] Run `scripts/proxmox_create_openclaw_lxc.sh` on Proxmox host
 - [ ] Record printed container IP
@@ -21,11 +21,13 @@ Use this as the fastest no-surprises path.
 - [ ] Change root password immediately after login
 - [ ] (Recommended) add your SSH key and move toward key-only auth
 
-## D) Install/OpenClaw runtime in container
+## D) Verify OpenClaw platform in container
 
-- [ ] Install OpenClaw in the container (use your standard install method)
-- [ ] Confirm gateway service exists and is running:
-  - `systemctl status openclaw-gateway --no-pager -l`
+The LXC script installs OpenClaw automatically. Verify it:
+
+- [ ] `openclaw --version`
+- [ ] `openclaw doctor`
+- [ ] `systemctl status openclaw-gateway --no-pager -l`
 
 ## E) Enable remote access networking
 

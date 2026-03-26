@@ -12,7 +12,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/pbezant/OpenClaw-Persona
 
 The launcher shows a small menu:
 
-1. Create OpenClaw Ubuntu LXC
+1. Create OpenClaw Debian LXC (with GUI + Discord bot)
 2. Configure Tailscale subnet router
 3. Run both (recommended)
 
